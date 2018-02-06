@@ -32,7 +32,7 @@ namespace Tools_starfield
                 starColor *= (float)(rand.Next(30, 80) / 100f); stars[stars.Count() - 1].TintColor = starColor;
             }
         }
-
+        // temp comment
         public void Update(GameTime gameTime)
         {
             foreach (Sprite star in stars)
