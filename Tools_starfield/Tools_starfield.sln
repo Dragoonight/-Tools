@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools_starfield", "Tools_starfield\Tools_starfield\Tools_starfield.csproj", "{DB6A9170-60C9-4D4A-A7AA-1F4A7B8A2755}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Tools_starfieldContent", "Tools_starfield\Tools_starfieldContent\Tools_starfieldContent.contentproj", "{64DBE7A6-D1DE-4FDA-9307-E736741EA03A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB6A9170-60C9-4D4A-A7AA-1F4A7B8A2755}.Debug|x86.ActiveCfg = Debug|x86
+		{DB6A9170-60C9-4D4A-A7AA-1F4A7B8A2755}.Debug|x86.Build.0 = Debug|x86
+		{DB6A9170-60C9-4D4A-A7AA-1F4A7B8A2755}.Release|x86.ActiveCfg = Release|x86
+		{DB6A9170-60C9-4D4A-A7AA-1F4A7B8A2755}.Release|x86.Build.0 = Release|x86
+		{64DBE7A6-D1DE-4FDA-9307-E736741EA03A}.Debug|x86.ActiveCfg = Debug|x86
+		{64DBE7A6-D1DE-4FDA-9307-E736741EA03A}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+2015 Visual Studio XNA package.
+
+1. Make sure you have installed Visualstudio 2015 (If you have it already installed, jump over this step)
+2. Install DirectX
+3. Install XNA Framework 4.0 Redistribution
+4. Install XNA Game Studio 4.0 Platform Tools
+5. Install XNA Game Studio 4.0 Shared
+6. Install XNA Game Studio 4.0.vsix
+7. Install XNA VS2015 installer
+
+Regards Malmerino
