@@ -27,38 +27,38 @@ namespace Tools_starfield
         Rectangle sourceRect;
         //Variabel for the rectangle position
         Vector2 position;
-        //_Need help
+        //Variabel Velocity for the 
         Vector2 velocity;
 
-        //Communicates with with caller  
+        //Communicates so that the class vector Position returns and it values will return
         public Vector2 Position
         {
             get { return position;  }
             set { position = value; }
         }
 
-        //Communicates with with caller  
+        //The same but with the velocity
         public Vector2 Velocity
         {
             get { return velocity;  }
             set { velocity = value; }
         }
 
-        //Communicates with with caller  
+        //the same but with the Texture
         public Texture2D Texture
         {
             get { return playerSprite; }
             set { playerSprite = value; }
         }
 
-        //
+        //The same but with the rRectangle 
         public Rectangle SourceRect
         {
             get { return sourceRect; }
             set { sourceRect = value; }
         }
 
-        //__________________________
+        //When mentioning the class playermanager it will all of the things under it related
         public PlayerManager (Texture2D texture, int currentFrame,int spriteWidth , int spriteHeight)
         {
             this.playerSprite = texture;
@@ -67,132 +67,158 @@ namespace Tools_starfield
             this.spriteHeight = spriteHeight;
         }
 
-        //keyboardcontroll variabel
+        //keyboardcontroll variabel for current
         KeyboardState currentKBState;
+        //Keyboardcurrent variabel for previous
         KeyboardState prevoiusKBState;
 
-        //_______________________
+        //The class handlespritemovement will have the values that are mention under it
         public void HandleSpriteMovement(GameTime gameTime)
         {
-            //_____
+            //The previousKBState will get the value of the CurrentKBState
             prevoiusKBState = currentKBState;
+            //The current KBState will get the values of the Keyboard State
             currentKBState = Keyboard.GetState();
 
-            //___
+            
+            
+            //The sourceRect will get new values that are mentioned under i
             sourceRect = new Rectangle(currentFrame * spriteWidth, 0, spriteWidth, spriteHeight);
 
 
-            //__________
+            //If the current KBstate gets pressed the corresponding things will happen under it
             if (currentKBState.GetPressedKeys().Length == 0)
             { 
 
-            //______
+            //The frame will go from 0 to 3 (always under 4) and reset to 0 again
             if (currentFrame > 0 && currentFrame < 4)
             {
                 currentFrame = 0;
             }
 
-            //_________
+            //the frame will go from 4 and to 7 and reset to 4 again
             if (currentFrame > 4 && currentFrame < 8)
                 {
                     currentFrame = 4;
                 }
 
-            //_________
+            //The frame will go from 8 to 11 and reset to 8 again
             if (currentFrame > 8 && currentFrame < 12)
                 {
                     currentFrame = 8;
                 }
 
-            //________
+            //The frame will go from 12 to 15 and reset to 12 again
             if (currentFrame > 12 && currentFrame < 16)
                 {
                     currentFrame = 12;
                 }
 
+            
             }
 
-            //____________________
+            //When right keys is pressed the correspodning things will happen mentioned under
             if (currentKBState.IsKeyDown(Keys.Right) == true)
             {
-                AnimateRight(gameTime);
+                
+                //Everyhthing will be related to AnimateRight
+                AnimateRight (gameTime);
+                //As long as the player position is under position.X 780 the Spritespeed goes +
                 if (position.X < 780)
                 {
                     position.X += spriteSpeed;
                 }
-            }
 
-            //___________________
+             
+            }
+           
+
+            //When left key is pressed the corresponding things will happen mentioned under
             if (currentKBState.IsKeyDown(Keys.Left) == true)
             {
+                //Everything will be related to AnimateLeft
                 AnimateLeft(gameTime);
+                //As long as the player position is above position.X 20 the spritespeed goes -
                 if (position.X > 20)
                 {
                     position.X -= spriteSpeed;
                 }
+
+                if (currentKBState.IsKeyDown(Keys.Left) == true)
+                {
+                    AnimateLeft(gameTime);
+                }
             }
 
-            //__________________
+            //When Down key is pressed the corresponding things will happen mentioned under
             if (currentKBState.IsKeyDown(Keys.Down) == true)
             {
+                //Everything will be related to AnimateDown
                 AnimateDown(gameTime);
-                if (position.Y < 575)
+                //As long as the player position is under position.Y 400 the spritespeed goes +
+                if (position.Y < 400)
                 {
                     position.Y += spriteSpeed;
                 }
             }
 
 
-            //__________________
+            //When Up Key is pressed the corresponding things will happen mentioned under
             if (currentKBState.IsKeyDown(Keys.Up) == true)
             {
+                //As long as the player position is above position.Y 25 the spritespeed goes -
                 AnimateUp(gameTime);
                 if (position.Y > 25)
                 {
                     position.Y -= spriteSpeed;
                 }
             }
-             //______________________________________
+             //Velocity gets a new vector also the Sourcerect.Width and sourceRect.Height is halfed for some reason
             Velocity = new Vector2(sourceRect.Width / 2, sourceRect.Height / 2);
         }
 
-        //__________________
+        //The class AnimateRight have some rules mentioned under
         public void AnimateRight (GameTime gameTime)
         {
+            //if CurrentKbstate and prevousKbstate are not the same the currentframe goes to 9 
             if (currentKBState != prevoiusKBState)
             {
                 currentFrame = 9;
             }
 
-            //________________
+            //The timer gets higher and higher with the time in milliseconds
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //_________________
+            //If the timer is higher than the interval the currentframe goes + and the resets
             if (timer > interval)
             {
                 currentFrame++;
+                timer = 0f;
 
+                //Not mentioned is that if the currentframe is higher than 11 then it goes back to 8 again
                 if (currentFrame > 11)
                 {
-                    currentFrame = 8; 
-                }
-                //_
-                timer = 0f;
+                    currentFrame = 8;
+                }            
+                
             } 
         }
 
-        //__________________
+        //The class AnimateUp have some rules mentioned under
         public void AnimateUp(GameTime gameTime)
         {
+            
+           
+            //if CurrentKbstate and prevousKbstate are not the same then the currentframe goes to 13
             if (currentKBState != prevoiusKBState)
             {
                 currentFrame = 13;
             }
 
-            //________________
+            //The timer goes higher and higher with the time in milliseconds
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //_________________
+            //If the timer is higher than the interval the currentFrame goes +, but has a max to under 15 and it will reset 12
             if (timer > interval)
             {
                 currentFrame++;
@@ -201,23 +227,24 @@ namespace Tools_starfield
                 {
                     currentFrame = 12;
                 }
-                //_
+                //The timer also resets to 0f
                 timer = 0f;
             }
         }
 
-        //__________________
+        //The class AnimateDown have some rules mentioned under
         public void AnimateDown(GameTime gameTime)
         {
+            //if CurrentKbstate and prevousKbstate are not the same then the currentframe goes to 1
             if (currentKBState != prevoiusKBState)
             {
                 currentFrame = 1;
             }
 
-            //________________
+            //The timer goes higher and higher with the time in milliseconds
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //_________________
+            //if the timer is higher than the interval the currentframe goes +, but has a max to under 3 and it will reset to 0
             if (timer > interval)
             {
                 currentFrame++;
@@ -226,23 +253,24 @@ namespace Tools_starfield
                 {
                     currentFrame = 0;
                 }
-                //_
+                //The timer also resets to 0f
                 timer = 0f;
             }
         }
 
-        //__________________
+        //The class AnimateLeft have some rules mentioned under
         public void AnimateLeft(GameTime gameTime)
         {
+            //if CurrentKbstate and prevousKbstate are not the same then the currentframe goes to 5
             if (currentKBState != prevoiusKBState)
             {
                 currentFrame = 5;
             }
 
-            //________________
+            //The timer goes higher and higher with the time in milliseconds
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //_________________
+            ////if the timer is higher than the interval the currentframe goes +, but has a max to under 7 and it will reset to 4
             if (timer > interval)
             {
                 currentFrame++;
@@ -251,15 +279,14 @@ namespace Tools_starfield
                 {
                     currentFrame = 4;
                 }
-                //_
+                //The timer also resets to 0f
                 timer = 0f;
             }
+
         }
-
-
-
-
-
+       
+        
+        
             }
 
 }

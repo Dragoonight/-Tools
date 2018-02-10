@@ -8,30 +8,30 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
-//The differnce
+//Class name
 namespace Tools_starfield
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
+    
     public class Game1 : Microsoft.Xna.Framework.Game
+    #region Variables
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //________________________
+        //Refering to playermanager class
         PlayerManager playerSprite;
-
+        //Refering to Starfield class
         Starfield starField;
+        //Refering to Starfield class
         Texture2D mixedSprites;
-
+        #endregion
+    
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-
+        #region Initialize
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -44,7 +44,8 @@ namespace Tools_starfield
 
             base.Initialize();
         }
-
+        #endregion
+        #region Loadcontent
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -53,18 +54,19 @@ namespace Tools_starfield
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            //Loads Mixeds prite
             mixedSprites = Content.Load<Texture2D>(@"Images/Mixed");
-
+            //Loads new starfield to this StarField
             starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 30f), mixedSprites, new Rectangle(0, 450, 2, 2));
 
-            //_____________________________________________________
+            //
             playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/SpriteSheet"), 1, 32, 48);
 
             //_________________________________
             playerSprite.Position = new Vector2(400, 300);
         }
-
+        #endregion
+        #region Unloadcontent
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -73,7 +75,8 @@ namespace Tools_starfield
         {
             // TODO: Unload any non ContentManager content here
         }
-
+        #endregion       
+        #region Update
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -85,14 +88,19 @@ namespace Tools_starfield
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            starField.Update(gameTime);
+           //Updates that Starfield corresponds with time
+           starField.Update(gameTime);
 
             //Player Movement
             playerSprite.HandleSpriteMovement(gameTime);
-
+            
             base.Update(gameTime);
-        }
 
+
+           
+        }
+        #endregion
+        #region Draw
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -108,5 +116,6 @@ namespace Tools_starfield
 
             base.Draw(gameTime);
         }
+        #endregion
     }
 }

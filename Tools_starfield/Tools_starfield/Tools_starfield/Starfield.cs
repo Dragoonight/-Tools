@@ -9,17 +9,26 @@ namespace Tools_starfield
 {
     class Starfield
     {
+        //This class makes new a List for the sprite 
         private List<Sprite> stars = new List<Sprite>();
+        //ScreenWidth in int
         private int screenWidth = 800;
+        //ScreenHeight in int
         private int ScreenHeight = 600;
+        //A class for randomness
         private Random rand = new Random();
+        //A class for all the colors that will be in use
         private Color[] colors = {Color.White, Color.Yellow,
         Color.Wheat, Color.WhiteSmoke, Color.SlateGray};
 
+        //The StarField class will have all the mentioned things assigned to it
         public Starfield(int screenWidth, int ScreenHeight, int starCount, Vector2 starVelocity, Texture2D texture, Rectangle frameRectangle)
         {
+            //ScreenWidth that is private is getting the corresponding values from the other screenWidth
             this.screenWidth = screenWidth;
+            //ScreenHeight that is private is getting the corresponding values from the other screenHeight
             this.ScreenHeight = ScreenHeight;
+            //Need help here
             for (int x = 0; x < starCount; x++)
             {
                 stars.Add(new Sprite(
@@ -32,9 +41,10 @@ namespace Tools_starfield
                 starColor *= (float)(rand.Next(30, 80) / 100f); stars[stars.Count() - 1].TintColor = starColor;
             }
         }
-        // temp comment
+        //This class udates the position of all the stars
         public void Update(GameTime gameTime)
         {
+            //Updates that when the stars  Y axel is higher than screen height it will randomly spawn, i cannot add not remove things here
             foreach (Sprite star in stars)
             {
                 star.Update(gameTime);
@@ -44,9 +54,10 @@ namespace Tools_starfield
                 }
             }
         }
-
+        //This class draws the spriteBatch we need
         public void Draw(SpriteBatch spriteBatch)
         {
+           //Draws the sprite star but i cannot add or remove things here 
             foreach (Sprite star in stars)
             {
                 star.Draw(spriteBatch);
