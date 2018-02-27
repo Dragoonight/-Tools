@@ -59,11 +59,14 @@ namespace Tools_starfield
             //Loads new starfield to this StarField
             starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 30f), mixedSprites, new Rectangle(0, 450, 2, 2));
 
-            //
-            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/SpriteSheet"), 1, 32, 48);
+            Rectangle screenBounds = new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/SpriteSheet"), 1, 32, 48, screenBounds);
+
 
             //_________________________________
             playerSprite.Position = new Vector2(400, 300);
+
+            
         }
         #endregion
         #region Unloadcontent
@@ -93,6 +96,8 @@ namespace Tools_starfield
 
             //Player Movement
             playerSprite.HandleSpriteMovement(gameTime);
+
+            playerSprite.Update(gameTime);
             
             base.Update(gameTime);
 
@@ -111,6 +116,7 @@ namespace Tools_starfield
 
             spriteBatch.Begin();
             starField.Draw(spriteBatch);
+            playerSprite.draw(spriteBatch);
             spriteBatch.Draw(playerSprite.Texture, playerSprite.Position, playerSprite.SourceRect, Color.White);
             spriteBatch.End();
 

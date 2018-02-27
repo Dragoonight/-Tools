@@ -30,6 +30,12 @@ namespace Tools_starfield
         //Variabel Velocity for the 
         Vector2 velocity;
 
+        private Vector2 gunOffset = new Vector2(25, 10);
+        private float shotTimer = 0.0f;
+        private float minShotTimer = 0.2f;
+        public ShootManager PlayerShotManager;
+        Rectangle screenBounds;
+
         //Communicates so that the class vector Position returns and it values will return
         public Vector2 Position
         {
@@ -59,12 +65,16 @@ namespace Tools_starfield
         }
 
         //When mentioning the class playermanager it will all of the things under it related
-        public PlayerManager (Texture2D texture, int currentFrame,int spriteWidth , int spriteHeight)
+        public PlayerManager (Texture2D texture, int currentFrame,int spriteWidth , int spriteHeight, Rectangle screenBounds)
         {
             this.playerSprite = texture;
             this.currentFrame = currentFrame;
             this.spriteWidth = spriteWidth;
             this.spriteHeight = spriteHeight;
+
+            this.screenBounds = screenBounds;
+
+            PlayerShotManager = new ShootManager(texture, new Rectangle(0, 300, 5, 5), 4, 2, 250f, screenBounds);
         }
 
         //keyboardcontroll variabel for current
@@ -173,6 +183,14 @@ namespace Tools_starfield
                     position.Y -= spriteSpeed;
                 }
             }
+
+
+            if (currentKBState.IsKeyDown(Keys.Space))
+            {
+                FireShot();
+            }
+
+
              //Velocity gets a new vector also the Sourcerect.Width and sourceRect.Height is halfed for some reason
             Velocity = new Vector2(sourceRect.Width / 2, sourceRect.Height / 2);
         }
@@ -285,7 +303,25 @@ namespace Tools_starfield
 
         }
        
+        private void FireShot()
+        {
+            if (shotTimer >= minShotTimer)
+            {
+                PlayerShotManager.FireShot(position + gunOffset, new Vector2(0, -1), true);
+                shotTimer = 0.0f;
+            }
+        }
+
+        public void Update (GameTime gameTime)
+        {
+            PlayerShotManager.Update(gameTime);
+            shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
         
+        public void draw (SpriteBatch spriteBatch)
+        {
+            PlayerShotManager.Draw(spriteBatch);
+        }
         
             }
 

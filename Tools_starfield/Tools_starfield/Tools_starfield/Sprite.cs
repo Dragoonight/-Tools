@@ -54,7 +54,7 @@ namespace Tools_starfield
 
         public Vector2 Velocity
         {
-            get { return Velocity;  }
+            get { return velocity;  }
             set { velocity = value; }
         }
 
