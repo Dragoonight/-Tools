@@ -22,6 +22,8 @@ namespace Tools_starfield
         PlayerManager playerSprite;
         //Refering to Starfield class
         Starfield starField;
+        //
+        EnemyManager enemyManager;
         //Refering to Starfield class
         Texture2D mixedSprites;
         #endregion
@@ -66,6 +68,8 @@ namespace Tools_starfield
             //_________________________________
             playerSprite.Position = new Vector2(400, 300);
 
+            //
+            enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
             
         }
         #endregion
@@ -98,6 +102,8 @@ namespace Tools_starfield
             playerSprite.HandleSpriteMovement(gameTime);
 
             playerSprite.Update(gameTime);
+
+            enemyManager.Update(gameTime);
             
             base.Update(gameTime);
 
@@ -117,6 +123,7 @@ namespace Tools_starfield
             spriteBatch.Begin();
             starField.Draw(spriteBatch);
             playerSprite.draw(spriteBatch);
+            enemyManager.Draw(spriteBatch);
             spriteBatch.Draw(playerSprite.Texture, playerSprite.Position, playerSprite.SourceRect, Color.White);
             spriteBatch.End();
 
