@@ -40,7 +40,7 @@ namespace Tools_starfield
                 thisShot.AddFrame(new Rectangle(InitialFrame.X + (InitialFrame.Width * x), InitialFrame.Y, InitialFrame.Width, InitialFrame.Height));
             }
 
-            thisShot.ColllisionRadius = CollisionRadius;
+            thisShot.CollisionRadius = CollisionRadius;
             shots.Add(thisShot);
         }
 

@@ -27,6 +27,8 @@ namespace Tools_starfield
         //Refering to Starfield class
         Texture2D mixedSprites;
         #endregion
+
+        CollisionsManager collisionManager;
     
         public Game1()
         {
@@ -95,6 +97,8 @@ namespace Tools_starfield
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            collisionManager = new CollisionsManager(playerSprite, enemyManager);
+
            //Updates that Starfield corresponds with time
            starField.Update(gameTime);
 
@@ -104,6 +108,8 @@ namespace Tools_starfield
             playerSprite.Update(gameTime);
 
             enemyManager.Update(gameTime);
+
+            collisionManager.CheckCollisions();
             
             base.Update(gameTime);
 

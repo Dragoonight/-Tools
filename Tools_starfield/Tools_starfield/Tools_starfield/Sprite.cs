@@ -21,7 +21,7 @@ namespace Tools_starfield
         private Color tintColor = Color.White;
         private float rotation = 0.0f;
 
-        public int ColllisionRadius = 0;
+        public int CollisionRadius = 0;
         public int BoundingXPadding = 0;
         public int BoundingYPadding = 0;
 
@@ -130,7 +130,7 @@ namespace Tools_starfield
         public bool IsCircleColliding(Vector2 otherCenter, float otherRadius)
         {
             if (Vector2.Distance(Center, otherCenter) <
-                (ColllisionRadius + otherRadius))
+                (CollisionRadius + otherRadius))
                 return true;
             else
                 return false;

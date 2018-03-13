@@ -30,6 +30,11 @@ namespace Tools_starfield
         //Variabel Velocity for the 
         Vector2 velocity;
 
+        public int CollisionRadius = 0;
+        public bool Destroyed = false;
+        public int LivesRemaining = 3;
+        private int playerRadius = 15;
+
         private Vector2 gunOffset = new Vector2(25, 10);
         private float shotTimer = 0.0f;
         private float minShotTimer = 0.2f;
@@ -57,11 +62,19 @@ namespace Tools_starfield
             set { playerSprite = value; }
         }
 
-        //The same but with the rRectangle 
+        //The same but with the Rectangle 
         public Rectangle SourceRect
         {
             get { return sourceRect; }
             set { sourceRect = value; }
+        }
+
+        public Vector2 Center
+        {
+            get
+            {
+                return position + new Vector2(spriteWidth / 2, spriteHeight / 2);
+            }
         }
 
         //When mentioning the class playermanager it will all of the things under it related
@@ -74,7 +87,10 @@ namespace Tools_starfield
 
             this.screenBounds = screenBounds;
 
+
             PlayerShotManager = new ShootManager(texture, new Rectangle(0, 300, 5, 5), 4, 2, 250f, screenBounds);
+
+            CollisionRadius = playerRadius;
         }
 
         //keyboardcontroll variabel for current
@@ -308,7 +324,7 @@ namespace Tools_starfield
             if (shotTimer >= minShotTimer)
             {
                 PlayerShotManager.FireShot(position + gunOffset, new Vector2(0, -1), true);
-                shotTimer = 0.0f;
+                shotTimer = 0.0f;            
             }
         }
 
@@ -316,6 +332,12 @@ namespace Tools_starfield
         {
             PlayerShotManager.Update(gameTime);
             shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (!Destroyed)
+            {
+                shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            }
         }
         
         public void draw (SpriteBatch spriteBatch)

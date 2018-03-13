@@ -29,7 +29,7 @@ namespace Tools_starfield
 
             previousPosition = Position;
             currentWaypoint = Position;
-            EnemySprite.ColllisionRadius = enemyRadius;
+            EnemySprite.CollisionRadius = enemyRadius;
         }
 
         public void Addwaypoint(Vector2 waypoint)
