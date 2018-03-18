@@ -43,10 +43,11 @@ namespace Tools_starfield
             }
         }
 
-        public Particle (Vector2 location, Texture2D texture, Rectangle initialFrame, Vector2 velocity, Vector2 acceleratioln, float maxSpeed, int duration, Color initialColor, Color finalColor) : (location, texture, initialFrame, Velocity)
+        public Particle (Vector2 location, Texture2D texture, Rectangle initialFrame, Vector2 velocity, Vector2 acceleratioln, float maxSpeed, int duration, Color initialColor, Color finalColor) : base (location, texture, initialFrame, velocity)
         {
             initialDuration = duration;
             remainingDuration = duration;
+
             this.acceleration = acceleration;
             this.initialColor = initialColor;
             this.maxSpeed = maxSpeed;
@@ -61,7 +62,7 @@ namespace Tools_starfield
                 if (velocity.Length() > maxSpeed)
                 {
                     velocity.Normalize();
-                    Velocity *= maxSpeed;
+                    velocity *= maxSpeed;
                 }
                 TintColor = Color.Lerp(initialColor, finalColor, DurationProgress); remainingDuration--; base.Update(gameTime);
             }
