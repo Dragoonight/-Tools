@@ -10,6 +10,9 @@ namespace Tools_starfield
 {
     class PlayerManager
     {
+        
+
+
         //variabel for player sprite
         Texture2D playerSprite;
         //variabel for the timer
@@ -29,12 +32,18 @@ namespace Tools_starfield
         Vector2 position;
         //Variabel Velocity for the 
         Vector2 velocity;
+        
 
         private Vector2 gunOffset = new Vector2(25, 10);
         private float shotTimer = 0.0f;
         private float minShotTimer = 0.2f;
         public ShootManager PlayerShotManager;
         Rectangle screenBounds;
+
+        public int CollisionRadius = 0;
+        public bool Destroyed = false;
+        public int LivesRemaining = 3;
+        private int playerRadius = 15;
 
         //Communicates so that the class vector Position returns and it values will return
         public Vector2 Position
@@ -64,6 +73,14 @@ namespace Tools_starfield
             set { sourceRect = value; }
         }
 
+        public Vector2 Center
+        {
+            get
+            {
+                return position + new Vector2(spriteWidth / 2, spriteHeight / 2);
+            }
+        }
+
         //When mentioning the class playermanager it will all of the things under it related
         public PlayerManager (Texture2D texture, int currentFrame,int spriteWidth , int spriteHeight, Rectangle screenBounds)
         {
@@ -73,6 +90,8 @@ namespace Tools_starfield
             this.spriteHeight = spriteHeight;
 
             this.screenBounds = screenBounds;
+
+            CollisionRadius = playerRadius;
 
             PlayerShotManager = new ShootManager(texture, new Rectangle(0, 300, 5, 5), 4, 2, 250f, screenBounds);
         }
@@ -138,8 +157,6 @@ namespace Tools_starfield
                 {
                     position.X += spriteSpeed;
                 }
-
-             
             }
            
 
@@ -152,12 +169,7 @@ namespace Tools_starfield
                 if (position.X > 20)
                 {
                     position.X -= spriteSpeed;
-                }
-
-                if (currentKBState.IsKeyDown(Keys.Left) == true)
-                {
-                    AnimateLeft(gameTime);
-                }
+                }       
             }
 
             //When Down key is pressed the corresponding things will happen mentioned under
@@ -316,6 +328,11 @@ namespace Tools_starfield
         {
             PlayerShotManager.Update(gameTime);
             shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (Destroyed)
+            {
+                shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
         }
         
         public void draw (SpriteBatch spriteBatch)
