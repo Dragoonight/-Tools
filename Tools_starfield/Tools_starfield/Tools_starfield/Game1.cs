@@ -33,10 +33,10 @@ namespace Tools_starfield
         CollisionsManager collisionManager;
 
         ExplosionManager explosionManager;
+
+       
         #endregion
 
-        CollisionsManager collisionManager;
-    
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -78,9 +78,11 @@ namespace Tools_starfield
             //_________________________________
             playerSprite.Position = new Vector2(400, 300);
 
-            collisionManager = new CollisionsManager(playerSprite, enemyManager, explosionManager);
-
             explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 100, 50, 50), 3, new Rectangle(0, 450, 2, 2));
+
+            collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
+
+           
 
             
 
@@ -109,7 +111,7 @@ namespace Tools_starfield
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            collisionManager = new CollisionsManager(playerSprite, enemyManager);
+           collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
 
            //Updates that Starfield corresponds with time
            starField.Update(gameTime);

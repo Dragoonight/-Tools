@@ -43,7 +43,7 @@ namespace Tools_starfield
             }
         }
 
-        public Particle (Vector2 location, Texture2D texture, Rectangle initialFrame, Vector2 velocity, Vector2 acceleratioln, float maxSpeed, int duration, Color initialColor, Color finalColor) : base (location, texture, initialFrame, velocity)
+        public Particle (Vector2 location, Texture2D texture, Rectangle initialFrame, Vector2 velocity, Vector2 acceleration, float maxSpeed, int duration, Color initialColor, Color finalColor) : base (location, texture, initialFrame, velocity)
         {
             initialDuration = duration;
             remainingDuration = duration;

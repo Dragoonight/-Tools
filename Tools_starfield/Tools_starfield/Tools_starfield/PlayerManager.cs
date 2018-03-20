@@ -45,11 +45,6 @@ namespace Tools_starfield
         public ShootManager PlayerShotManager;
         Rectangle screenBounds;
 
-        public int CollisionRadius = 0;
-        public bool Destroyed = false;
-        public int LivesRemaining = 3;
-        private int playerRadius = 15;
-
         //Communicates so that the class vector Position returns and it values will return
         public Vector2 Position
         {

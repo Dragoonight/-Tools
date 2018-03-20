@@ -30,7 +30,7 @@ namespace Tools_starfield
             {
                 foreach (Enemy enemy in enemyManager.Enemies)
                 {
-                    if (shot.IsCircleColliding(enemy.EnemySprite.Center, enemy.EnemySprite.ColllisionRadius))
+                    if (shot.IsCircleColliding(enemy.EnemySprite.Center, enemy.EnemySprite.CollisionRadius))
                     {
 
                         shot.Position = offScreen;
