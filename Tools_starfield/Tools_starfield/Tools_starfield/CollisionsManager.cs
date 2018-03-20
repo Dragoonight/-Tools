@@ -8,35 +8,42 @@ namespace Tools_starfield
 {
     class CollisionsManager
     {
+        //Variables
         private PlayerManager playerManager;
         private EnemyManager enemyManager;
-        //private ExplosionManager explosionManager;
+        private ExplosionManager explosionManager;
+
+        //Offscreen deletes things on the screen that goes out from ScreenBounds
         private Vector2 offScreen = new Vector2(-500, -500);
 
-        public CollisionsManager(PlayerManager playerSprite, EnemyManager enemyManager)
+        //Cuncstructor
+        public CollisionsManager (PlayerManager playerSprite, ExplosionManager explosionManager, EnemyManager enemyManager)
         {
             this.playerManager = playerSprite;
-            //this.explosionManager = explosionManager;
+            this.explosionManager = explosionManager;
             this.enemyManager = enemyManager;
-        }
-
-        private void checkShotToEnemyCollosions()
+        } 
+         
+        private void checkShotToEnemyCollisions()
         {
             foreach (Sprite shot in playerManager.PlayerShotManager.shots)
             {
                 foreach (Enemy enemy in enemyManager.Enemies)
                 {
-                    if (shot.IsCircleColliding(enemy.EnemySprite.Center, enemy.EnemySprite.CollisionRadius))
+                    if (shot.IsCircleColliding(enemy.EnemySprite.Center, enemy.EnemySprite.ColllisionRadius))
                     {
+
                         shot.Position = offScreen;
                         enemy.Destroyed = true;
 
-                        //explosionManager.AddExplosion(enemy.EnemySprite.Center, enemy.EnemySprite.Velocity/ 10);
+                        explosionManager.AddExplosion(enemy.EnemySprite.Center, enemy.EnemySprite.Velocity / 10);
+                        
                     }
                 }
             }
         }
-        private void checkShotToPlayerCollisions ()
+
+        private void checkShotToPlayerCollisions()
         {
             foreach (Sprite shot in enemyManager.EnemyShotManager.shots)
             {
@@ -44,8 +51,7 @@ namespace Tools_starfield
                 {
                     shot.Position = offScreen;
                     playerManager.Destroyed = true;
-                    
-                    //explosionManager.AddExplosion(playerManager.Center,Vector2.Zero;        
+                    explosionManager.AddExplosion(playerManager.Center, Vector2.Zero);
                 }
             }
         }
@@ -57,19 +63,18 @@ namespace Tools_starfield
                 if (enemy.EnemySprite.IsCircleColliding(playerManager.Position, playerManager.CollisionRadius))
                 {
                     enemy.Destroyed = true;
-
-                    //explosionManager.AddExplosion(enemy.EnemySprite.Center, enemy.EnemySprite.Velocity/ 10;
+                    explosionManager.AddExplosion(enemy.EnemySprite.Center, enemy.EnemySprite.Velocity / 10);
 
                     playerManager.Destroyed = true;
 
-                    //explosionManager.AddExplosion(playerManager.Position, Vector2.zero);
+                    explosionManager.AddExplosion(playerManager.Position, Vector2.Zero);
                 }
             }
         }
 
         public void CheckCollisions()
         {
-            checkShotToEnemyCollosions();
+            checkShotToEnemyCollisions();
 
             if (!playerManager.Destroyed)
             {
@@ -77,5 +82,7 @@ namespace Tools_starfield
                 checkEnemyToPlayerCollisions();
             }
         }
+
+
     }
 }

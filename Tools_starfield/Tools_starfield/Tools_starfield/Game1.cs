@@ -18,14 +18,21 @@ namespace Tools_starfield
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+
         //Refering to playermanager class
         PlayerManager playerSprite;
         //Refering to Starfield class
         Starfield starField;
+
         //
         EnemyManager enemyManager;
+
         //Refering to Starfield class
         Texture2D mixedSprites;
+
+        CollisionsManager collisionManager;
+
+        ExplosionManager explosionManager;
         #endregion
 
         CollisionsManager collisionManager;
@@ -44,8 +51,8 @@ namespace Tools_starfield
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            
+            
             base.Initialize();
         }
         #endregion
@@ -66,12 +73,17 @@ namespace Tools_starfield
             Rectangle screenBounds = new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
             playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/SpriteSheet"), 1, 32, 48, screenBounds);
 
+            enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
 
             //_________________________________
             playerSprite.Position = new Vector2(400, 300);
 
-            //
-            enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
+            collisionManager = new CollisionsManager(playerSprite, enemyManager, explosionManager);
+
+            explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 100, 50, 50), 3, new Rectangle(0, 450, 2, 2));
+
+            
+
             
         }
         #endregion
@@ -107,9 +119,12 @@ namespace Tools_starfield
 
             playerSprite.Update(gameTime);
 
+            collisionManager.CheckCollisions();
+
             enemyManager.Update(gameTime);
 
-            collisionManager.CheckCollisions();
+            explosionManager.Update(gameTime);
+
             
             base.Update(gameTime);
 
@@ -127,6 +142,7 @@ namespace Tools_starfield
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
+            explosionManager.Draw(spriteBatch);
             starField.Draw(spriteBatch);
             playerSprite.draw(spriteBatch);
             enemyManager.Draw(spriteBatch);

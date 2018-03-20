@@ -5,19 +5,19 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
-
 namespace Tools_starfield
 {
-    class Particles : Sprite
+    class Particle : Sprite
+    
     {
+        //Variables
         private Vector2 acceleration;
         private float maxSpeed;
         private int initialDuration;
         private int remainingDuration;
         private Color initialColor;
         private Color finalColor;
-        
+
 
         public int ElapsedDuration
         {
@@ -26,15 +26,16 @@ namespace Tools_starfield
                 return initialDuration - remainingDuration;
             }
         }
+
         public float DurationProgress
         {
             get
-            {
+            { 
                 return (float)ElapsedDuration / (float)initialDuration;
             }
         }
 
-        public bool Isactive
+        public bool IsActive
         {
             get
             {
@@ -42,10 +43,11 @@ namespace Tools_starfield
             }
         }
 
-        public Particles (Vector2 location, Texture2D texture, Rectangle initialFrame, Vector2 velocity, Vector2 acceleration, float maxSpeed, int duration, Color initialColor, Color finalColor) : base (location, texture, initialFrame, velocity)
+        public Particle (Vector2 location, Texture2D texture, Rectangle initialFrame, Vector2 velocity, Vector2 acceleratioln, float maxSpeed, int duration, Color initialColor, Color finalColor) : base (location, texture, initialFrame, velocity)
         {
             initialDuration = duration;
             remainingDuration = duration;
+
             this.acceleration = acceleration;
             this.initialColor = initialColor;
             this.maxSpeed = maxSpeed;
@@ -54,7 +56,7 @@ namespace Tools_starfield
 
         public override void Update (GameTime gameTime)
         {
-            if (Isactive)
+            if (IsActive)
             {
                 velocity += acceleration;
                 if (velocity.Length() > maxSpeed)
@@ -62,18 +64,17 @@ namespace Tools_starfield
                     velocity.Normalize();
                     velocity *= maxSpeed;
                 }
-                TintColor = Color.Lerp(initialColor, finalColor, DurationProgress);
-                remainingDuration--;
-                base.Update(gameTime);
+                TintColor = Color.Lerp(initialColor, finalColor, DurationProgress); remainingDuration--; base.Update(gameTime);
             }
         }
 
         public override void Draw (SpriteBatch spriteBatch)
         {
-            if (Isactive)
+            if (IsActive)
             {
                 base.Draw(spriteBatch);
             }
         }
+
     }
 }

@@ -12,9 +12,9 @@ namespace Tools_starfield
         //This class makes new a List for the sprite 
         private List<Sprite> stars = new List<Sprite>();
         //ScreenWidth in int
-        private int screenWidth = 800;
+        private int screenWidth = 500;
         //ScreenHeight in int
-        private int ScreenHeight = 600;
+        private int ScreenHeight = 300;
         //A class for randomness
         private Random rand = new Random();
         //A class for all the colors that will be in use
