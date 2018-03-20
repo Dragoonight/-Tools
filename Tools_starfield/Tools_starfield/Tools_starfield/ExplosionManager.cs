@@ -68,6 +68,12 @@ namespace Tools_starfield
                 ExplosionParticles.Add(new Particle(pieceLocation, texture, pieceRectangles[rand.Next(0, pieceRectangles.Count)], randomDirection(pieceSpeedScale) + momentum, Vector2.Zero, explosionMaxSpeed, durationCount, initialColor, finalColor));
             }
 
+            int points = rand.Next(minpointCount, maxPointCount + 1);
+            for (int x = 0; x < points; x++)
+            {
+                ExplosionParticles.Add(new Particle(location, texture, pointRectangle, randomDirection((float)rand.Next(pointSpeedMin, pointSpeedMax)) + momentum, Vector2.Zero, explosionMaxSpeed, durationCount, initialColor, finalColor));
+            }
+
         }
 
         public void Update (GameTime gameTime)
