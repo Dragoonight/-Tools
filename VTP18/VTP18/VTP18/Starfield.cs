@@ -18,8 +18,7 @@ namespace Tools_starfield
         //A class for randomness
         private Random rand = new Random();
         //A class for all the colors that will be in use
-        private Color[] colors = {Color.White, Color.Yellow,
-        Color.Wheat, Color.WhiteSmoke, Color.SlateGray};
+        private Color[] colors = {Color.White, Color.WhiteSmoke, Color.SlateGray};
 
         //The StarField class will have all the mentioned things assigned to it
         public Starfield(int screenWidth, int ScreenHeight, int starCount, Vector2 starVelocity, Texture2D texture, Rectangle frameRectangle)

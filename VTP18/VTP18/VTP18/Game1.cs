@@ -52,10 +52,8 @@ namespace Tools_starfield
         /// </summary>
         protected override void Initialize()
         {
-            this.graphics.PreferredBackBufferWidth = 480;
-            this.graphics.PreferredBackBufferHeight = 320;
-            this.graphics.ApplyChanges();   
             
+
             base.Initialize();
         }
         #endregion
@@ -74,7 +72,7 @@ namespace Tools_starfield
             starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 30f), mixedSprites, new Rectangle(0, 450, 2, 2));
 
             Rectangle screenBounds = new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
-            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/Sprite Cheat"), 1, 32, 48, screenBounds);
+            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/Mixed"), 1, 32, 48, screenBounds);
 
             enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
 
@@ -85,10 +83,7 @@ namespace Tools_starfield
 
             collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
 
-            Background = Content.Load<Texture2D>(@"Images/Background");
-
-            
-
+            Background = Content.Load<Texture2D>(@"Images/HWB");
             
         }
         #endregion
