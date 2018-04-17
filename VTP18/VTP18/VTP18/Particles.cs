@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_starfield
+namespace VTP18
 {
     class Particle : Sprite
     

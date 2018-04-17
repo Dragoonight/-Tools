@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 //Class name
-namespace Tools_starfield
+namespace VTP18
 {
     
     public class Game1 : Microsoft.Xna.Framework.Game
@@ -24,6 +24,8 @@ namespace Tools_starfield
         //Refering to Starfield class
         Starfield starField;
 
+        BackgroundManager BackgroundImage;
+
         //
         EnemyManager enemyManager;
 
@@ -33,6 +35,8 @@ namespace Tools_starfield
         CollisionsManager collisionManager;
 
         ExplosionManager explosionManager;
+
+        
 
         Texture2D Background;
        
@@ -69,7 +73,7 @@ namespace Tools_starfield
             //Loads Mixeds prite
             mixedSprites = Content.Load<Texture2D>(@"Images/Mixed");
             //Loads new starfield to this StarField
-            starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 30f), mixedSprites, new Rectangle(0, 450, 2, 2));
+            starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 500f), mixedSprites, new Rectangle(0, 450, 2, 2));
 
             Rectangle screenBounds = new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
             playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/Mixed"), 1, 32, 48, screenBounds);
@@ -78,6 +82,8 @@ namespace Tools_starfield
 
             //_________________________________
             playerSprite.Position = new Vector2(400, 300);
+
+            BackgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/Mixed"), 1, 32, 46, screenBounds);
 
             explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 100, 50, 50), 3, new Rectangle(0, 450, 2, 2));
 
@@ -119,6 +125,8 @@ namespace Tools_starfield
 
             playerSprite.Update(gameTime);
 
+            BackgroundImage.Update(gameTime);
+
             collisionManager.CheckCollisions();
 
             enemyManager.Update(gameTime);
@@ -142,12 +150,13 @@ namespace Tools_starfield
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(BackgroundImage.Texture, BackgroundImage.Position, BackgroundImage.SourceRect, Color.OrangeRed);
             explosionManager.Draw(spriteBatch);
             starField.Draw(spriteBatch);
             playerSprite.draw(spriteBatch);
             enemyManager.Draw(spriteBatch);
             spriteBatch.Draw(playerSprite.Texture, playerSprite.Position, playerSprite.SourceRect, Color.White);
+           
             spriteBatch.End();
 
             base.Draw(gameTime);

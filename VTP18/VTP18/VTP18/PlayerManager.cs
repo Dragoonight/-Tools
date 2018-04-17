@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Tools_starfield
-{
-    class PlayerManager
+namespace VTP18
+
+
+{ class PlayerManager
     {
         
-
 
         //variabel for player sprite
         Texture2D playerSprite;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Tools_starfield
+namespace VTP18
 {
     class CollisionsManager
     {

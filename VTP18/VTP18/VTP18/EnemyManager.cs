@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Tools_starfield
+namespace VTP18
 {
     class EnemyManager
     {
@@ -38,41 +38,18 @@ namespace Tools_starfield
         private void SetUpWaypoints()
         {
             List<Vector2> path0 = new List<Vector2>();
-            path0.Add(new Vector2(850, 300));
-            path0.Add(new Vector2(-100, 300));
+            path0.Add(new Vector2(300, -100));
+            path0.Add(new Vector2(300, 550));
             pathWaypoints.Add(path0);
             waveSpawns[0] = 0;
 
             List<Vector2> path1 = new List<Vector2>();
-            path1.Add(new Vector2(-50, 225));
-            path1.Add(new Vector2(850, 225));
+            path1.Add(new Vector2(450, -100));
+            path1.Add(new Vector2(450, 550));
             pathWaypoints.Add(path1);
             waveSpawns[1] = 0;
 
-            List<Vector2> path2 = new List<Vector2>();
-            path2.Add(new Vector2(-100, 50));
-            path2.Add(new Vector2(150, 50));
-            path2.Add(new Vector2(200, 75));
-            path2.Add(new Vector2(200, 125));
-            path2.Add(new Vector2(150, 150));
-            path2.Add(new Vector2(150, 175));
-            path2.Add(new Vector2(200, 200));
-            path2.Add(new Vector2(600, 200));
-            path2.Add(new Vector2(850, 600));
-            pathWaypoints.Add(path2);
-            waveSpawns[2] = 0;
 
-            List<Vector2> path3 = new List<Vector2>();
-            path3.Add(new Vector2(600, -100));
-            path3.Add(new Vector2(600, 250));
-            path3.Add(new Vector2(580, 275));
-            path3.Add(new Vector2(500, 250));
-            path3.Add(new Vector2(500, 200));
-            path3.Add(new Vector2(450, 175));
-            path3.Add(new Vector2(400, 150));
-            path3.Add(new Vector2(-100, 150));
-            pathWaypoints.Add(path3);
-            waveSpawns[3] = 0;
         }
 
         public EnemyManager(Texture2D texture, Rectangle initialFrame, int frameCount, PlayerManager playerSprite, Rectangle screenBounds)

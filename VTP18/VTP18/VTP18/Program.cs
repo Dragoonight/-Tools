@@ -1,6 +1,6 @@
 using System;
 
-namespace Tools_starfield
+namespace VTP18
 {
 #if WINDOWS || XBOX
     static class Program
