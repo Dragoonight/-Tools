@@ -24,8 +24,10 @@ namespace VTP18
         //Refering to Starfield class
         Starfield starField;
 
+
         BackgroundManager BackgroundImage;
 
+        BackgoundManager2 BackgroundImage2;
         //
         EnemyManager enemyManager;
 
@@ -83,12 +85,14 @@ namespace VTP18
             //_________________________________
             playerSprite.Position = new Vector2(400, 300);
 
-            BackgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/Mixed"), 1, 32, 46, screenBounds);
+            BackgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/HWB2"), 1, 32, 46, screenBounds);
+
+            BackgroundImage2 = new BackgoundManager2 (Content.Load<Texture2D>(@"Images/HWB"), 1, 32, 46, screenBounds);
 
             explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 100, 50, 50), 3, new Rectangle(0, 450, 2, 2));
 
             collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
-
+             
             Background = Content.Load<Texture2D>(@"Images/HWB");
             
         }
@@ -127,6 +131,8 @@ namespace VTP18
 
             BackgroundImage.Update(gameTime);
 
+            BackgroundImage2.Update(gameTime);
+
             collisionManager.CheckCollisions();
 
             enemyManager.Update(gameTime);
@@ -150,7 +156,9 @@ namespace VTP18
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(BackgroundImage.Texture, BackgroundImage.Position, BackgroundImage.SourceRect, Color.OrangeRed);
+            BackgroundImage2.draw(spriteBatch);
+            BackgroundImage.draw(spriteBatch);
+
             explosionManager.Draw(spriteBatch);
             starField.Draw(spriteBatch);
             playerSprite.draw(spriteBatch);
