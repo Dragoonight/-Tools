@@ -18,30 +18,22 @@ namespace VTP18
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-
         //Refering to playermanager class
         PlayerManager playerSprite;
         //Refering to Starfield class
         Starfield starField;
-
-
-        BackgroundManager BackgroundImage;
-
-        BackgoundManager2 BackgroundImage2;
-        //
+        //Refering to BackgroundManager class
+        BackgroundManager backgroundImage;
+        //Refering to BackgroundManager class
+        BackgroundManager2 backgroundImage2;
+        //Refering to EnemyManager class
         EnemyManager enemyManager;
-
-        //Refering to Starfield class
-        Texture2D mixedSprites;
-
+        //Refering to CololisionManager class
         CollisionsManager collisionManager;
-
+        //Refering to ExplosionManager class
         ExplosionManager explosionManager;
-
-        
-
-        Texture2D Background;
-       
+        //Variable Texture
+        Texture2D mixedSprites;       
         #endregion
 
         public Game1()
@@ -72,28 +64,33 @@ namespace VTP18
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //Loads Mixeds prite
+
+            //Loads Mixed sprites
             mixedSprites = Content.Load<Texture2D>(@"Images/Mixed");
-            //Loads new starfield to this StarField
+            //Loads Starfiedls star texture
             starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 500f), mixedSprites, new Rectangle(0, 450, 2, 2));
 
             Rectangle screenBounds = new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+
+            //Loads and locates Player spite from Mixed sprites
             playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/Mixed"), 1, 32, 48, screenBounds);
-
-            enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
-
-            //_________________________________
+            //Loads but also declares playerSprite position
             playerSprite.Position = new Vector2(400, 300);
 
-            BackgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/HWB2"), 1, 32, 46, screenBounds);
+            //Loads and locates Enemt sprite from Mixed sprites
+            enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
 
-            BackgroundImage2 = new BackgoundManager2 (Content.Load<Texture2D>(@"Images/HWB"), 1, 32, 46, screenBounds);
-
+            //Loads Explosion sprite from mixed sprites
             explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 100, 50, 50), 3, new Rectangle(0, 450, 2, 2));
-
+            //Loads Collision properties
             collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
+
+            //Loads Background Image from images 
+            backgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/HWB2"), 0, 0, 0, screenBounds);
+            //Loads Background2 Image from images 
+            backgroundImage2 = new BackgroundManager2 (Content.Load<Texture2D>(@"Images/HWB"), 0, 0, 0, screenBounds);
+            
              
-            Background = Content.Load<Texture2D>(@"Images/HWB");
             
         }
         #endregion
@@ -115,31 +112,40 @@ namespace VTP18
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-           collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
+            //Allows game to exit 
+            GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
+            KeyboardState keyboard = Keyboard.GetState();
+            //Back or Escape exits the game
+            if (gamePad.Buttons.Back == ButtonState.Pressed ||
+                keyboard.IsKeyDown(Keys.Escape)) this.Exit();
+           
+            // Press F to toggle full-screen mode
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                graphics.IsFullScreen = !graphics.IsFullScreen;
+                graphics.ApplyChanges();
+            }
 
            //Updates that Starfield corresponds with time
            starField.Update(gameTime);
 
-            //Player Movement
+            //Updates spritemovement in playersprite class 
             playerSprite.HandleSpriteMovement(gameTime);
-
+            //Updates playerSprite class
             playerSprite.Update(gameTime);
-
-            BackgroundImage.Update(gameTime);
-
-            BackgroundImage2.Update(gameTime);
-
+            //Updates Backgroundimage class
+            backgroundImage.Update(gameTime);
+            //Updates BackgroundImage2 class
+            backgroundImage2.Update(gameTime);
+            //Updates collisionManager class
             collisionManager.CheckCollisions();
-
+            //Updates enemymanager class
             enemyManager.Update(gameTime);
-
+            //Updates explosionManager class
             explosionManager.Update(gameTime);
+            //Updates and gives the respective value
+            collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
 
-            
             base.Update(gameTime);
 
 
@@ -155,13 +161,15 @@ namespace VTP18
         {
             GraphicsDevice.Clear(Color.Black);
 
+            //Draws all the different classes
             spriteBatch.Begin();
-            BackgroundImage2.draw(spriteBatch);
-            BackgroundImage.draw(spriteBatch);
+            backgroundImage2.draw(spriteBatch);
+            backgroundImage.draw(spriteBatch);
 
             explosionManager.Draw(spriteBatch);
             starField.Draw(spriteBatch);
             playerSprite.draw(spriteBatch);
+
             enemyManager.Draw(spriteBatch);
             spriteBatch.Draw(playerSprite.Texture, playerSprite.Position, playerSprite.SourceRect, Color.White);
            

@@ -10,42 +10,31 @@ using Microsoft.Xna.Framework.Input;
 
 namespace VTP18
 {
-    class BackgoundManager2
+    class BackgroundManager2
     {
-        Texture2D BackgroundImage2;
-
-        //Variaberectanglel for the  
-        Rectangle sourceRect;
-
+        //Variables
+        Texture2D BackgroundImage2;      
+    
         Vector2 position2 = new Vector2 (0, -490);
 
-
+        //Get set
         public Texture2D texture2
         {
             get { return BackgroundImage2; }
             set { BackgroundImage2 = value; }
         }
-
         public Vector2 Position2
         {
             get { return position2; }
             set { position2 = value; }
         }
-
-        //The same but with the Rectangle 
-        public Rectangle SourceRect
-        {
-            get { return sourceRect; }
-            set { sourceRect = value; }
-        }
-
-        //When mentioning the class playermanager it will all of the things under it related
-        public BackgoundManager2 (Texture2D texture, int currentFrame, int spriteWidth, int spriteHeight, Rectangle screenBounds)
+        //The Constuctorn
+        public BackgroundManager2 (Texture2D texture, int currentFrame, int spriteWidth, int spriteHeight, Rectangle screenBounds)
         {
             this.BackgroundImage2 = texture;
         }
 
-
+        //The Update
         public void Update(GameTime gameTime)
         {
             position2.Y += 10;
@@ -56,7 +45,7 @@ namespace VTP18
             }
 
         }
-
+        //The Draw
         public void draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(BackgroundImage2, position2, Color.White);
