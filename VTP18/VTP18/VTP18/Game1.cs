@@ -78,7 +78,7 @@ namespace VTP18
             starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 500f), mixedSprites, new Rectangle(0, 450, 2, 2));
 
             Rectangle screenBounds = new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
-            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/Mixed"), 1, 32, 48, screenBounds);
+            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/mixed"), 1, 32, 48, screenBounds);
 
             enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
 
