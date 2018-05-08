@@ -16,14 +16,14 @@ namespace VTP18
         //Offscreen deletes things on the screen that goes out from ScreenBounds
         private Vector2 offScreen = new Vector2(-500, -500);
 
-        //Cuncstructor
+        //The Cunstructor
         public CollisionsManager (PlayerManager playerSprite, ExplosionManager explosionManager, EnemyManager enemyManager)
         {
             this.playerManager = playerSprite;
             this.explosionManager = explosionManager;
             this.enemyManager = enemyManager;
         } 
-         
+         //Checks the enemy collision
         private void checkShotToEnemyCollisions()
         {
             foreach (Sprite shot in playerManager.PlayerShotManager.shots)
@@ -42,7 +42,7 @@ namespace VTP18
                 }
             }
         }
-
+        //Checks player Collsion
         private void checkShotToPlayerCollisions()
         {
             foreach (Sprite shot in enemyManager.EnemyShotManager.shots)
@@ -55,7 +55,7 @@ namespace VTP18
                 }
             }
         }
-
+        //Checks the collsion between enemy and player
         private void checkEnemyToPlayerCollisions()
         {
             foreach (Enemy enemy in enemyManager.Enemies)
@@ -71,7 +71,7 @@ namespace VTP18
                 }
             }
         }
-
+        //Checks 
         public void CheckCollisions()
         {
             checkShotToEnemyCollisions();
