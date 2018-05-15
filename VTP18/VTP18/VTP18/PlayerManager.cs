@@ -25,7 +25,7 @@ namespace VTP18
         int spriteWidth = 32;
         int spriteHeight = 48;
         //Variabel for the sprite speed
-        int spriteSpeed = 2;
+        int spriteSpeed = 4;
         //Variabel for the rectangle 
         Rectangle sourceRect;
         //Variabel for the rectangle position
@@ -131,19 +131,19 @@ namespace VTP18
             //the frame will go from 4 and to 7 and reset to 4 again
             if (currentFrame > 4 && currentFrame < 8)
                 {
-                    currentFrame = 4;
+                    currentFrame = 0;
                 }
 
             //The frame will go from 8 to 11 and reset to 8 again
             if (currentFrame > 8 && currentFrame < 12)
                 {
-                    currentFrame = 8;
+                    currentFrame = 0;
                 }
 
             //The frame will go from 12 to 15 and reset to 12 again
             if (currentFrame > 12 && currentFrame < 16)
                 {
-                    currentFrame = 12;
+                    currentFrame = 0;
                 }
 
             

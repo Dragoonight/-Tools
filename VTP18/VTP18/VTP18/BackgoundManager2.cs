@@ -37,7 +37,7 @@ namespace VTP18
         //The Update
         public void Update(GameTime gameTime)
         {
-            position2.Y += 10;
+            position2.Y += 13;
 
             if (position2.Y > 500)
             {

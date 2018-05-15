@@ -74,7 +74,7 @@ namespace VTP18
             playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/mixed"), 1, 32, 48, screenBounds);
 
             //Loads and locates Enemt sprite from Mixed sprites
-            enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 200, 50, 50), 6, playerSprite, screenBounds);
+            enemyManager = new EnemyManager(mixedSprites, new Rectangle(2, 175, 32, 48), 4, playerSprite, screenBounds);
 
             //Loads Explosion sprite from mixed sprites
             explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 100, 50, 50), 3, new Rectangle(0, 450, 2, 2));

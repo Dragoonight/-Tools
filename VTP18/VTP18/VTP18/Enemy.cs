@@ -86,7 +86,7 @@ namespace VTP18
                 EnemySprite.Velocity = heading;
                 previousPosition = EnemySprite.Position;
                 EnemySprite.Update(gameTime);
-                EnemySprite.Rotation = (float)Math.Atan2(EnemySprite.Position.Y - previousPosition.Y, EnemySprite.Position.X - previousPosition.X);
+                //EnemySprite.Rotation = (float)Math.Atan2(EnemySprite.Position.Y - previousPosition.Y, EnemySprite.Position.X - previousPosition.X);
                 
                 if (WaypointReached())
                 {

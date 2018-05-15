@@ -63,8 +63,8 @@ namespace VTP18
 
             SetUpWaypoints();
         }
-             
-        public void SpawnEnemy (int path)
+
+        public void SpawnEnemy(int path)
         {
             Enemy thisEnemy = new Enemy(texture, pathWaypoints[path][0], initialFrame, frameCount);
 
@@ -106,7 +106,7 @@ namespace VTP18
         public void Update(GameTime gameTime)
         {
             EnemyShotManager.Update(gameTime);
-            
+
             for (int x = Enemies.Count - 1; x >= 0; x--)
             {
                 Enemies[x].Update(gameTime);
@@ -133,10 +133,10 @@ namespace VTP18
             if (Active)
             {
                 updateWaveSpawns(gameTime);
-            }           
+            }
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             EnemyShotManager.Draw(spriteBatch);
 
