@@ -82,13 +82,11 @@ namespace VTP18
             collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
 
             //Loads Background Image from images 
-            backgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/HWB2"), 0, 0, 0, screenBounds);
+            backgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/HWB"), 0, 0, 0, screenBounds);
             //Loads Background2 Image from images 
             backgroundImage2 = new BackgroundManager2 (Content.Load<Texture2D>(@"Images/HWB"), 0, 0, 0, screenBounds);
             
-             
-            
-        }
+               }
         #endregion
         #region Unloadcontent
         /// <summary>
