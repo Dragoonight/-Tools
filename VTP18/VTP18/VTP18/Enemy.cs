@@ -11,7 +11,7 @@ namespace VTP18
     {
         //Variables and classes
         public Sprite EnemySprite;
-        public Vector2 gunOffset = new Vector2(25, 25);
+        public Vector2 gunOffset = new Vector2(10, 0);
         private Queue<Vector2> waypoints = new Queue<Vector2>();
         private Vector2 currentWaypoint = Vector2.Zero;
         private float speed = 120f;

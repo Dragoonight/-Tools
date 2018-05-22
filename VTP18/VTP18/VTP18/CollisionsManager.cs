@@ -13,6 +13,8 @@ namespace VTP18
         private EnemyManager enemyManager;
         private ExplosionManager explosionManager;
 
+        Game1 game1;
+
         //Offscreen deletes things on the screen that goes out from ScreenBounds
         private Vector2 offScreen = new Vector2(-500, -500);
 
@@ -35,6 +37,7 @@ namespace VTP18
 
                         shot.Position = offScreen;
                         enemy.Destroyed = true;
+                        //game1.playerscore++;
 
                         explosionManager.AddExplosion(enemy.EnemySprite.Center, enemy.EnemySprite.Velocity / 10);
                         
@@ -52,6 +55,7 @@ namespace VTP18
                     shot.Position = offScreen;
                     playerManager.Destroyed = true;
                     explosionManager.AddExplosion(playerManager.Center, Vector2.Zero);
+                    //game1.playerLife--;
                 }
             }
         }

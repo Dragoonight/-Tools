@@ -18,6 +18,12 @@ namespace VTP18
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public int playerscore = 0;
+        public int playerLife = 5;
+
+        Vector2 playerscorepos;
+        Vector2 playerLifepos;
+
         //Refering to playermanager class
         PlayerManager playerSprite;
         //Refering to Starfield class
@@ -28,6 +34,7 @@ namespace VTP18
         BackgroundManager2 backgroundImage2;
         //Refering to EnemyManager class
         EnemyManager enemyManager;
+        EnemyManager2 enemyManager2;
         //Refering to CololisionManager class
         CollisionsManager collisionManager;
         //Refering to ExplosionManager class
@@ -71,13 +78,14 @@ namespace VTP18
             starField = new Starfield(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height, 200, new Vector2(0, 500f), mixedSprites, new Rectangle(0, 450, 2, 2));
 
             Rectangle screenBounds = new Rectangle(0, 0, this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
-            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/mixed"), 1, 32, 48, screenBounds);
+            playerSprite = new PlayerManager(Content.Load<Texture2D>(@"Images/mixed"), 1, 32, 50, screenBounds);
 
             //Loads and locates Enemt sprite from Mixed sprites
-            enemyManager = new EnemyManager(mixedSprites, new Rectangle(2, 175, 32, 48), 4, playerSprite, screenBounds);
+            enemyManager = new EnemyManager(mixedSprites, new Rectangle(0, 55, 32, 50), 4, playerSprite, screenBounds);
+            enemyManager2 = new EnemyManager2(mixedSprites, new Rectangle(0, 110, 32, 50), 4, playerSprite, screenBounds);
 
             //Loads Explosion sprite from mixed sprites
-            explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 100, 50, 50), 3, new Rectangle(0, 450, 2, 2));
+            explosionManager = new ExplosionManager(mixedSprites, new Rectangle(0, 165, 11, 11), 3, new Rectangle(0, 450, 2, 2));
             //Loads Collision properties
             collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
 
@@ -135,6 +143,7 @@ namespace VTP18
             collisionManager.CheckCollisions();
             //Updates enemymanager class
             enemyManager.Update(gameTime);
+            enemyManager2.Update(gameTime);
             //Updates explosionManager class
             explosionManager.Update(gameTime);
             //Updates and gives the respective value
@@ -165,6 +174,7 @@ namespace VTP18
             playerSprite.draw(spriteBatch);
 
             enemyManager.Draw(spriteBatch);
+            enemyManager2.Draw(spriteBatch);
             spriteBatch.Draw(playerSprite.Texture, playerSprite.Position, playerSprite.SourceRect, Color.White);
            
             spriteBatch.End();

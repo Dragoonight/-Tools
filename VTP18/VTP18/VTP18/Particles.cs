@@ -18,7 +18,7 @@ namespace VTP18
         private Color initialColor;
         private Color finalColor;
 
-
+        //Get set
         public int ElapsedDuration
         {
             get

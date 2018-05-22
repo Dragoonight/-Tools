@@ -39,9 +39,9 @@ namespace VTP18
         public int LivesRemaining = 3;
         private int playerRadius = 15;
 
-        private Vector2 gunOffset = new Vector2(25, 10);
+        private Vector2 gunOffset = new Vector2(10, 0);
         private float shotTimer = 0.0f;
-        private float minShotTimer = 0.2f;
+        private float minShotTimer = 0.15f;
         public ShootManager PlayerShotManager;
         Rectangle screenBounds;
 
@@ -93,7 +93,7 @@ namespace VTP18
 
             CollisionRadius = playerRadius;
 
-            PlayerShotManager = new ShootManager(texture, new Rectangle(0, 300, 5, 5), 4, 2, 250f, screenBounds);
+            PlayerShotManager = new ShootManager(texture, new Rectangle(0, 665, 5, 7), 1, 15, 250f, screenBounds);
 
             CollisionRadius = playerRadius;
         }
@@ -120,10 +120,11 @@ namespace VTP18
 
             //If the current KBstate gets pressed the corresponding things will happen under it
             if (currentKBState.GetPressedKeys().Length == 0)
-            { 
-
-            //The frame will go from 0 to 3 (always under 4) and reset to 0 again
-            if (currentFrame > 0 && currentFrame < 4)
+            {
+                #region Frames < and > then gets this
+                //Is not used in this project but don't wanna erase it
+                //The frame will go from 0 to 3 (always under 4) and reset to 0 again
+                if (currentFrame > 0 && currentFrame < 4)
             {
                 currentFrame = 0;
             }
@@ -135,7 +136,7 @@ namespace VTP18
                 }
 
             //The frame will go from 8 to 11 and reset to 8 again
-            if (currentFrame > 8 && currentFrame < 12)
+            if (currentFrame > 8 && currentFrame < 11)
                 {
                     currentFrame = 0;
                 }
@@ -145,7 +146,11 @@ namespace VTP18
                 {
                     currentFrame = 0;
                 }
-
+                #endregion
+                if (currentFrame > 0 && currentFrame < 16)
+                {
+                    currentFrame = 0;
+                }
             
             }
 
@@ -156,20 +161,20 @@ namespace VTP18
                 //Everyhthing will be related to AnimateRight
                 AnimateRight (gameTime);
                 //As long as the player position is under position.X 780 the Spritespeed goes +
-                if (position.X < 780)
+                if (position.X < 645)
                 {
                     position.X += spriteSpeed;
                 }
             }
            
 
-            //When left key is pressed the corresponding things will happen mentioned under
+            //When left key is pressed the corresonding things will happen mentioned under
             if (currentKBState.IsKeyDown(Keys.Left) == true)
             {
                 //Everything will be related to AnimateLeft
                 AnimateLeft(gameTime);
                 //As long as the player position is above position.X 20 the spritespeed goes -
-                if (position.X > 20)
+                if (position.X > 100)
                 {
                     position.X -= spriteSpeed;
                 }       

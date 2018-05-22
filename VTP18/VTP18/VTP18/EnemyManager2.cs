@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace VTP18
 {
-    class EnemyManager
+    class EnemyManager2
     {
         private Texture2D texture;
         private Rectangle initialFrame;
@@ -38,21 +38,21 @@ namespace VTP18
         private void SetUpWaypoints()
         {
             List<Vector2> path0 = new List<Vector2>();
-            path0.Add(new Vector2(310, -100));
-            path0.Add(new Vector2(310, 550));
+            path0.Add(new Vector2(490, 550));
+            path0.Add(new Vector2(490, -100));
             pathWaypoints.Add(path0);
             waveSpawns[0] = 0;
 
             List<Vector2> path1 = new List<Vector2>();
-            path1.Add(new Vector2(190, -100));
-            path1.Add(new Vector2(190, 550));
+            path1.Add(new Vector2(610, 550));
+            path1.Add(new Vector2(610, -100));
             pathWaypoints.Add(path1);
             waveSpawns[1] = 0;
 
 
         }
 
-        public EnemyManager(Texture2D texture, Rectangle initialFrame, int frameCount, PlayerManager playerSprite, Rectangle screenBounds)
+        public EnemyManager2 (Texture2D texture, Rectangle initialFrame, int frameCount, PlayerManager playerSprite, Rectangle screenBounds)
         {
             this.texture = texture;
             this.initialFrame = initialFrame;
@@ -107,19 +107,19 @@ namespace VTP18
         {
             EnemyShotManager.Update(gameTime);
 
-            for (int t = Enemies.Count - 1; t >= 0; t--)
+            for (int x = Enemies.Count - 1; x >= 0; x--)
             {
-                Enemies[t].Update(gameTime);
-                if (Enemies[t].IsActive() == false)
+                Enemies[x].Update(gameTime);
+                if (Enemies[x].IsActive() == false)
                 {
-                    Enemies.RemoveAt(t);
+                    Enemies.RemoveAt(x);
                 }
                 else
                 {
                     if ((float)rand.Next(0, 1000) / 10 <= shipsShotChance)
                     {
-                        Vector2 fireLoc = Enemies[t].EnemySprite.Position;
-                        fireLoc += Enemies[t].gunOffset;
+                        Vector2 fireLoc = Enemies[x].EnemySprite.Position;
+                        fireLoc += Enemies[x].gunOffset;
 
                         Vector2 ShotDirection = playerManager.Position - fireLoc;
 
@@ -145,6 +145,5 @@ namespace VTP18
                 enemy.Draw(spriteBatch);
             }
         }
-
     }
 }

@@ -37,18 +37,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Highway Backgound.png">
-      <Name>HWB</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\HighwayBackgound2.png">
-      <Name>HWB2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Images\Normal_Highway.png">
       <Name>HWB</Name>
       <Importer>TextureImporter</Importer>
