@@ -20,7 +20,7 @@ namespace VTP18
         private Vector2 previousPosition = Vector2.Zero;
 
         //The enemy Constructer and some rules for enemy movement, speed
-        public Enemy (Texture2D texture, Vector2 Position, Rectangle initialFrame, int frameCount)
+        public Enemy(Texture2D texture, Vector2 Position, Rectangle initialFrame, int frameCount)
         {
             EnemySprite = new Sprite(Position, texture, initialFrame, Vector2.Zero);
 
@@ -41,7 +41,7 @@ namespace VTP18
         //When the waypoints has been reached the corresonding things will happen
         public bool WaypointReached()
         {
-            if (Vector2.Distance(EnemySprite.Position, currentWaypoint) < (float) EnemySprite.Source.Width / 2)
+            if (Vector2.Distance(EnemySprite.Position, currentWaypoint) < (float)EnemySprite.Source.Width / 2)
             {
                 return true;
             }
@@ -59,7 +59,7 @@ namespace VTP18
                 return false;
             }
 
-            if  (waypoints.Count > 0)
+            if (waypoints.Count > 0)
             {
                 return true;
             }
@@ -73,10 +73,10 @@ namespace VTP18
         }
 
 
-        public void Update (GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            if  (IsActive())
-                    {
+            if (IsActive())
+            {
                 Vector2 heading = currentWaypoint - EnemySprite.Position;
                 if (heading != Vector2.Zero)
                 {
@@ -87,7 +87,7 @@ namespace VTP18
                 previousPosition = EnemySprite.Position;
                 EnemySprite.Update(gameTime);
                 //EnemySprite.Rotation = (float)Math.Atan2(EnemySprite.Position.Y - previousPosition.Y, EnemySprite.Position.X - previousPosition.X);
-                
+
                 if (WaypointReached())
                 {
                     if (waypoints.Count > 0)
@@ -95,11 +95,11 @@ namespace VTP18
                         currentWaypoint = waypoints.Dequeue();
                     }
                 }
-                     
+
             }
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if (IsActive())
             {

@@ -29,7 +29,8 @@ namespace VTP18
             set { position2 = value; }
         }
         //The Constuctorn
-        public BackgroundManager2 (Texture2D texture, int currentFrame, int spriteWidth, int spriteHeight, Rectangle screenBounds)
+        public BackgroundManager2 (Texture2D texture)
+            
         {
             this.BackgroundImage2 = texture;
         }
@@ -37,7 +38,7 @@ namespace VTP18
         //The Update
         public void Update(GameTime gameTime)
         {
-            position2.Y += 13;
+            position2.Y += 9;
 
             if (position2.Y > 500)
             {
@@ -45,10 +46,14 @@ namespace VTP18
             }
 
         }
+
+        
         //The Draw
         public void draw(SpriteBatch spriteBatch)
         {
+            
             spriteBatch.Draw(BackgroundImage2, position2, Color.White);
-        }
+           
+        }    
     }
 }

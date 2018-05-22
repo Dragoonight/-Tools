@@ -13,9 +13,7 @@ namespace VTP18
         //variabel for player sprite
     {
         Texture2D BackgroundImage;
-        //Variaberectanglel for the  
-        Rectangle sourceRect;
-        //Variabel for the rectangle position
+        //Variabel for the starting position
         Vector2 position = new Vector2 (0, 0);
 
         //Get set
@@ -29,32 +27,28 @@ namespace VTP18
             get { return BackgroundImage; }
             set { BackgroundImage = value; }
         }
-        public Rectangle SourceRect
-        {
-            get { return sourceRect; }
-            set { sourceRect = value; }
-        }
-
         //The Constructor
-        public BackgroundManager (Texture2D texture, int currentFrame, int spriteWidth, int spriteHeight, Rectangle screenBounds)
+        public BackgroundManager(Texture2D texture)
         {
             this.BackgroundImage = texture;
         }
 
-       
-        //The Updates and rules
-        public void Update(GameTime gameTime)
+
+        //The speed 
+        public void Update (GameTime gameTime)
         {
-            position.Y += 13;
+            position.Y += 9;
 
             if (position.Y > 500)
             {
                 position.Y = -495;
             }
-    }
+        }
+
         //The Draw
         public void draw(SpriteBatch spriteBatch)
         {
+         
             spriteBatch.Draw(BackgroundImage,position,Color.White );
             
         }

@@ -12,8 +12,25 @@ namespace VTP18
         private PlayerManager playerManager;
         private EnemyManager enemyManager;
         private ExplosionManager explosionManager;
+        public int playerLife = 5;
+        public int enemyLife = 1;
 
-        Game1 game1;
+        private float immunity = 500f;
+
+
+        // Get/Set
+        public int PlayerLife
+        {
+            get { return playerLife; }
+            set { playerLife = value; }
+        }
+        public int ScoreBoard
+        {
+            get { return enemyLife; }
+            set { enemyLife = value; }
+        }
+
+
 
         //Offscreen deletes things on the screen that goes out from ScreenBounds
         private Vector2 offScreen = new Vector2(-500, -500);
@@ -34,10 +51,10 @@ namespace VTP18
                 {
                     if (shot.IsCircleColliding(enemy.EnemySprite.Center, enemy.EnemySprite.CollisionRadius))
                     {
-
+                        enemyLife--;
                         shot.Position = offScreen;
                         enemy.Destroyed = true;
-                        //game1.playerscore++;
+                        
 
                         explosionManager.AddExplosion(enemy.EnemySprite.Center, enemy.EnemySprite.Velocity / 10);
                         
@@ -49,41 +66,53 @@ namespace VTP18
         private void checkShotToPlayerCollisions()
         {
             foreach (Sprite shot in enemyManager.EnemyShotManager.shots)
-            {
-                if (shot.IsCircleColliding(playerManager.Center, playerManager.CollisionRadius))
+                if (shot.IsCircleColliding(
+                       playerManager.Center,
+                       playerManager.CollisionRadius))
                 {
                     shot.Position = offScreen;
-                    playerManager.Destroyed = true;
-                    explosionManager.AddExplosion(playerManager.Center, Vector2.Zero);
-                    //game1.playerLife--;
+                    playerLife--;
+                    if (playerLife < 1)
+                    {
+                        playerManager.Destroyed = true;
+                        explosionManager.AddExplosion(
+                        playerManager.Position,
+                        Vector2.Zero);
+                    }
                 }
-            }
         }
-        //Checks the collsion between enemy and player
+        //Checks the collsion between enemy and player and the rules
         private void checkEnemyToPlayerCollisions()
         {
             foreach (Enemy enemy in enemyManager.Enemies)
-            {
-                if (enemy.EnemySprite.IsCircleColliding(playerManager.Position, playerManager.CollisionRadius))
+                if (enemy.EnemySprite.IsCircleColliding(
+                        playerManager.Position,
+                        playerManager.CollisionRadius))
                 {
                     enemy.Destroyed = true;
-                    explosionManager.AddExplosion(enemy.EnemySprite.Center, enemy.EnemySprite.Velocity / 10);
+                    explosionManager.AddExplosion(
+                    enemy.EnemySprite.Center,
+                    enemy.EnemySprite.Velocity / 10);
 
-                    playerManager.Destroyed = true;
-
-                    explosionManager.AddExplosion(playerManager.Position, Vector2.Zero);
+                    playerLife--;
+                    if (playerLife < 0)
+                    {
+                        playerManager.Destroyed = true;
+                        explosionManager.AddExplosion(
+                        playerManager.Position,
+                        Vector2.Zero);
+                    }
                 }
-            }
         }
         //Checks 
-        public void CheckCollisions()
+        public void CheckCollisions(GameTime gameTime) 
         {
             checkShotToEnemyCollisions();
-
-            if (!playerManager.Destroyed)
+            if (!playerManager.Destroyed || immunity > 0)
             {
                 checkShotToPlayerCollisions();
                 checkEnemyToPlayerCollisions();
+               
             }
         }
 

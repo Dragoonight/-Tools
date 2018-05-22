@@ -75,6 +75,8 @@
     <Compile Include="BackgoundManager2.cs" />
     <Compile Include="BackgroundManager.cs" />
     <Compile Include="CollisionsManager.cs" />
+    <Compile Include="CreditsManager.cs" />
+    <Compile Include="CreditsManager2.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="EnemyManager2.cs" />
