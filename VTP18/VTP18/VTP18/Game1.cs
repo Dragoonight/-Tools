@@ -48,10 +48,10 @@ namespace VTP18
         SpriteFont RobotoRegular36;
         SpriteFont RobotoBold36;
         Texture2D Logo;
+        
 
-        int Time = 100;
-
-        Vector2 lifeTextPosition = new Vector2(24, 40);
+        Vector2 lifePosition = new Vector2(24, 40);
+        Vector2 scoreposition = new Vector2(725, 40);
 
         //The text i want to be able to show
         readonly string[] mainMenuStrArr = new string[] { "Campaign", "Credits", "Exit" };
@@ -138,7 +138,7 @@ namespace VTP18
             backgroundImage = new BackgroundManager(Content.Load<Texture2D>(@"Images/HWB"));
             //Loads Background2 Image from images 
             backgroundImage2 = new BackgroundManager2 (Content.Load<Texture2D>(@"Images/HWB"));
-
+            collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
             //
             CreditsBG = new CreditsManager (Content.Load<Texture2D>(@"images/CreditsBG"));
             CreditsBG2 = new CreditsManager2 (Content.Load<Texture2D>(@"images/CreditsBG2"));
@@ -354,6 +354,7 @@ namespace VTP18
                     backgroundImage2.Update(gameTime);
                     //Updates collisionManager class
                     collisionManager.CheckCollisions(gameTime);
+                    
                     //Updates enemymanager class
                     enemyManager.Update(gameTime);
 
@@ -361,9 +362,9 @@ namespace VTP18
                     //Updates explosionManager class
                     explosionManager.Update(gameTime);
                     //Updates and gives the respective value
-                    collisionManager = new CollisionsManager(playerSprite, explosionManager, enemyManager);
+                   
 
-                    if (collisionManager.playerLife <= 0)
+                    if (collisionManager.playerLife < 1)
                     {
                         gameState = GameStates.Gameover;
                     }
@@ -467,6 +468,8 @@ namespace VTP18
 
                                 #endregion
 
+                    collisionManager.playerLife = 5;
+                    collisionManager.playerScore = 0;
                                 break;
                 #endregion
 
@@ -622,7 +625,8 @@ namespace VTP18
 
                     enemyManager.Draw(spriteBatch);
                     enemyManager2.Draw(spriteBatch);
-                    spriteBatch.DrawString(RobotoBold36, collisionManager.playerLife.ToString(), lifeTextPosition, Color.DarkRed);
+                    spriteBatch.DrawString(RobotoBold36, collisionManager.playerLife.ToString(), lifePosition, Color.DarkRed);
+                    spriteBatch.DrawString(RobotoBold36, collisionManager.playerScore.ToString(), scoreposition, Color.Gray);
                     spriteBatch.Draw(playerSprite.Texture, playerSprite.Position, playerSprite.SourceRect, Color.White);
                    
                     break;

@@ -14,8 +14,7 @@ namespace VTP18
         private ExplosionManager explosionManager;
         public int playerLife = 5;
         public int enemyLife = 1;
-
-        private float immunity = 500f;
+        public int playerScore = 0;
 
 
         // Get/Set
@@ -36,11 +35,12 @@ namespace VTP18
         private Vector2 offScreen = new Vector2(-500, -500);
 
         //The Cunstructor
-        public CollisionsManager (PlayerManager playerSprite, ExplosionManager explosionManager, EnemyManager enemyManager)
+        public CollisionsManager (PlayerManager playerSprite, ExplosionManager explosionManager, EnemyManager enemyManager)//int playerLife
         {
             this.playerManager = playerSprite;
             this.explosionManager = explosionManager;
             this.enemyManager = enemyManager;
+            //this.playerLife = playerLife;
         } 
          //Checks the enemy collision
         private void checkShotToEnemyCollisions()
@@ -52,6 +52,7 @@ namespace VTP18
                     if (shot.IsCircleColliding(enemy.EnemySprite.Center, enemy.EnemySprite.CollisionRadius))
                     {
                         enemyLife--;
+                        playerScore++;
                         shot.Position = offScreen;
                         enemy.Destroyed = true;
                         
@@ -93,9 +94,9 @@ namespace VTP18
                     explosionManager.AddExplosion(
                     enemy.EnemySprite.Center,
                     enemy.EnemySprite.Velocity / 10);
-
+                    playerScore++;
                     playerLife--;
-                    if (playerLife < 0)
+                    if (playerLife < 1)
                     {
                         playerManager.Destroyed = true;
                         explosionManager.AddExplosion(
@@ -108,7 +109,7 @@ namespace VTP18
         public void CheckCollisions(GameTime gameTime) 
         {
             checkShotToEnemyCollisions();
-            if (!playerManager.Destroyed || immunity > 0)
+            if (!playerManager.Destroyed)
             {
                 checkShotToPlayerCollisions();
                 checkEnemyToPlayerCollisions();
