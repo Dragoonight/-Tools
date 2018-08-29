@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools_File", "Tools_File\Tools_File\Tools_File.csproj", "{EABEABC2-5C7A-40AB-9B9B-AD9127FD6476}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Tools_FileContent", "Tools_File\Tools_FileContent\Tools_FileContent.contentproj", "{F782EBD7-897F-4452-8244-6ABAB93F417C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EABEABC2-5C7A-40AB-9B9B-AD9127FD6476}.Debug|x86.ActiveCfg = Debug|x86
+		{EABEABC2-5C7A-40AB-9B9B-AD9127FD6476}.Debug|x86.Build.0 = Debug|x86
+		{EABEABC2-5C7A-40AB-9B9B-AD9127FD6476}.Release|x86.ActiveCfg = Release|x86
+		{EABEABC2-5C7A-40AB-9B9B-AD9127FD6476}.Release|x86.Build.0 = Release|x86
+		{F782EBD7-897F-4452-8244-6ABAB93F417C}.Debug|x86.ActiveCfg = Debug|x86
+		{F782EBD7-897F-4452-8244-6ABAB93F417C}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
