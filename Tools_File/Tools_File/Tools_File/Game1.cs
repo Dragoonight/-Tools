@@ -28,7 +28,7 @@ namespace Tools_File
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-
+        
         //Delar som vi vill skall finnas i vår fil
         [Serializable]
         public struct SaveData
@@ -51,9 +51,16 @@ namespace Tools_File
 
         }
 
-        Vector2 scorePosition1 = new Vector2(200, 200);
+        Vector2 scorePosition = new Vector2(200, 200);
+        Vector2 scorePosition1 = new Vector2(200, 250);
+        Vector2 scorePosition2 = new Vector2(200, 300);
+
+
+
         SpriteFont Font;
-        int playerScore;
+        int playerScore = (0);
+
+      
 
         public static SaveData LoadData (string Filename)
         {
@@ -129,7 +136,18 @@ namespace Tools_File
                 DoSave(data, Filename);
             }
         }
-        
+
+
+        enum GameStates
+        {
+           Changescore,
+           Highscore,
+
+        };
+        GameStates gameState = GameStates.Changescore;
+
+
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -143,10 +161,16 @@ namespace Tools_File
             //Kolla om filen finns annars stoppa in info
             if (!File.Exists(Filename))
             {
-                SaveData data = new SaveData(1);
-                data.PlayerName[0] = "kalle";
+                SaveData data = new SaveData(3);
+                data.PlayerName[0] = "Olle";
                 data.Score[0] = 0;
 
+                data.PlayerName[1] = "Subaru";
+                data.Score[1] = 0;
+
+                
+                data.PlayerName[2] = "Rem";
+                data.Score[2] = 0;
 
                 //Lägg in datan i själva filen
                 DoSave(data, Filename);
@@ -198,10 +222,56 @@ namespace Tools_File
             {
                 graphics.IsFullScreen = !graphics.IsFullScreen;
                 graphics.ApplyChanges();
+            }
+
+                switch (gameState)
+                {
+                    case GameStates.Changescore:
+                            
+                        if (keyboard.IsKeyDown(Keys.Up))
+                        {
+                            playerScore++;
+                        }
+
+                        if (keyboard.IsKeyDown(Keys.Down))
+                        {
+                            playerScore--;
+                        }
+                        
+                        if (keyboard.IsKeyDown(Keys.S))
+                        {
+                            SaveHighScore();
+                        }
+
+                        if (keyboard.IsKeyDown(Keys.H))
+                        {
+                            gameState = GameStates.Highscore;
+                        }
+
+                        break;
+
+                    case GameStates.Highscore:
+
+                        if (keyboard.IsKeyDown(Keys.M))
+                        {
+                            gameState = GameStates.Changescore;
+                        }
+
+
+                        break;
+                }
 
                 base.Update(gameTime);
-            }
+            
         }
+
+         
+            
+
+            
+                
+                   
+            
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -213,10 +283,32 @@ namespace Tools_File
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(Font, LoadData(Filename).PlayerName.ToString() + LoadData(Filename).Score[0].ToString(), scorePosition1, Color.White);
+            switch (gameState)
+            {
+                case GameStates.Changescore:
+
+                    spriteBatch.DrawString(Font, playerScore.ToString(), scorePosition, Color.White);
+
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[0].ToString() + " " + LoadData(Filename).Score[0].ToString(), scorePosition, Color.White);
+
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[1].ToString() + " " + LoadData(Filename).Score[1].ToString(), scorePosition1, Color.White);
+
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[2].ToString() + " " + LoadData(Filename).Score[2].ToString(), scorePosition2, Color.White);
+                    break;
+
+                case GameStates.Highscore:
+
+                     spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[0].ToString() + " " +  LoadData(Filename).Score[0].ToString(), scorePosition, Color.White);
+
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[1].ToString() + " " + LoadData(Filename).Score[1].ToString(), scorePosition1, Color.White);
+
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[2].ToString() + " " + LoadData(Filename).Score[2].ToString(), scorePosition2, Color.White);
+                    break;
+
+            }
 
             spriteBatch.End();
-            base.Draw(gameTime);
+                    base.Draw(gameTime);
         }
     }
 }
