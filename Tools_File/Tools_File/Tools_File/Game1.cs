@@ -53,6 +53,7 @@ namespace Tools_File
 
         Vector2 scorePosition1 = new Vector2(200, 200);
         SpriteFont Font;
+        int playerScore;
 
         public static SaveData LoadData (string Filename)
         {
@@ -101,7 +102,33 @@ namespace Tools_File
             }
         }
         
+        private void SaveHighScore()
+        {
+            //Create the data top save
+            SaveData data = LoadData(Filename);
 
+            int scoreIndex = -1;
+            for (int x = 0; x < data.Count; x++)
+            {
+                if (playerScore > data.Score[x])
+                {
+                    scoreIndex = x;
+                    break;
+                }
+            }
+            if (scoreIndex > -1)
+            {
+                //New high score found ... do swaps 
+                for (int x = data.Count - 1; x > scoreIndex; x--)
+                {
+                    data.Score[x] = data.Score[x - 1];
+                }
+
+                data.Score[scoreIndex] = playerScore;
+
+                DoSave(data, Filename);
+            }
+        }
         
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
