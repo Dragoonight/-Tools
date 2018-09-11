@@ -58,8 +58,11 @@ namespace Tools_File
 
 
         SpriteFont Font;
-        int playerScore = (0);
 
+
+        int playerScore = (0);
+        int playerScore1 = (0);
+        int playerScore2 = (0);
       
 
         public static SaveData LoadData (string Filename)
@@ -70,7 +73,7 @@ namespace Tools_File
             string fullpath = Filename;
 
             //Open the file
-            FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate,
+            FileStream stream = File.Open(fullpath, FileMode.Open,
                 FileAccess.Read);
             try
             {
@@ -115,6 +118,18 @@ namespace Tools_File
             SaveData data = LoadData(Filename);
 
             int scoreIndex = -1;
+            data.Score[0] = playerScore;
+
+
+
+            data.Score[1] = playerScore1;
+            data.Score[2] = playerScore2;
+
+
+
+
+            DoSave(data, Filename);
+
             for (int x = 0; x < data.Count; x++)
             {
                 if (playerScore > data.Score[x])
@@ -122,7 +137,22 @@ namespace Tools_File
                     scoreIndex = x;
                     break;
                 }
+                if (playerScore1 > data.Score[x])
+                {
+                    scoreIndex = x;
+                    break;
+                }
+                if (playerScore2 > data.Score[x])
+                {
+                    scoreIndex = x;
+                    break;
+                }
+
             }
+
+
+
+
             if (scoreIndex > -1)
             {
                 //New high score found ... do swaps 
@@ -131,10 +161,12 @@ namespace Tools_File
                     data.Score[x] = data.Score[x - 1];
                 }
 
-                data.Score[scoreIndex] = playerScore;
 
-                DoSave(data, Filename);
+
             }
+
+
+
         }
 
 
@@ -248,6 +280,19 @@ namespace Tools_File
                             gameState = GameStates.Highscore;
                         }
 
+                        if (keyboard.IsKeyDown(Keys.P))
+                    {
+                        playerScore1++;
+                    }
+
+                        if (keyboard.IsKeyDown(Keys.A))
+                    {
+                        playerScore2++;
+                    }
+                    
+
+                    
+
                         break;
 
                     case GameStates.Highscore:
@@ -287,22 +332,20 @@ namespace Tools_File
             {
                 case GameStates.Changescore:
 
-                    spriteBatch.DrawString(Font, playerScore.ToString(), scorePosition, Color.White);
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[0].ToString() + " " + playerScore.ToString(), scorePosition, Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[0].ToString() + " " + LoadData(Filename).Score[0].ToString(), scorePosition, Color.White);
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[1].ToString() + " " + playerScore1.ToString(), scorePosition1, Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[1].ToString() + " " + LoadData(Filename).Score[1].ToString(), scorePosition1, Color.White);
-
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[2].ToString() + " " + LoadData(Filename).Score[2].ToString(), scorePosition2, Color.White);
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[2].ToString() + " " + playerScore2.ToString(), scorePosition2, Color.White);
                     break;
 
                 case GameStates.Highscore:
 
-                     spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[0].ToString() + " " +  LoadData(Filename).Score[0].ToString(), scorePosition, Color.White);
+                     spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[].ToString() + " " +  LoadData(Filename).Score[0].ToString(), scorePosition, Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[1].ToString() + " " + LoadData(Filename).Score[1].ToString(), scorePosition1, Color.White);
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[].ToString() + " " + LoadData(Filename).Score[1].ToString(), scorePosition1, Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[2].ToString() + " " + LoadData(Filename).Score[2].ToString(), scorePosition2, Color.White);
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[].ToString() + " " + LoadData(Filename).Score[2].ToString(), scorePosition2, Color.White);
                     break;
 
             }
