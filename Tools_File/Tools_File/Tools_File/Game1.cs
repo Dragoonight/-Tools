@@ -51,6 +51,9 @@ namespace Tools_File
 
         }
 
+
+        string playerName = "Olle";
+        Vector2 playerpos = new Vector2(40, 20);
         Vector2 scorePosition = new Vector2(200, 200);
         Vector2 scorePosition1 = new Vector2(200, 250);
         Vector2 scorePosition2 = new Vector2(200, 300);
@@ -61,8 +64,7 @@ namespace Tools_File
 
 
         int playerScore = (0);
-        int playerScore1 = (0);
-        int playerScore2 = (0);
+       
       
 
         public static SaveData LoadData (string Filename)
@@ -98,7 +100,7 @@ namespace Tools_File
         {
 
             //Öppna filen eller skapa den om den inte finns
-            FileStream stream = File.Open(filename, FileMode.OpenOrCreate);
+            FileStream stream = File.Open(filename, FileMode.Create);
             try
             {
                 //Gör om till Xml och försök öppna Steamen 
@@ -118,17 +120,6 @@ namespace Tools_File
             SaveData data = LoadData(Filename);
 
             int scoreIndex = -1;
-            data.Score[0] = playerScore;
-
-
-
-            data.Score[1] = playerScore1;
-            data.Score[2] = playerScore2;
-
-
-
-
-            DoSave(data, Filename);
 
             for (int x = 0; x < data.Count; x++)
             {
@@ -137,21 +128,8 @@ namespace Tools_File
                     scoreIndex = x;
                     break;
                 }
-                if (playerScore1 > data.Score[x])
-                {
-                    scoreIndex = x;
-                    break;
-                }
-                if (playerScore2 > data.Score[x])
-                {
-                    scoreIndex = x;
-                    break;
-                }
 
             }
-
-
-
 
             if (scoreIndex > -1)
             {
@@ -161,7 +139,9 @@ namespace Tools_File
                     data.Score[x] = data.Score[x - 1];
                 }
 
-
+                data.Score[scoreIndex] = playerScore;
+                data.PlayerName[scoreIndex] = playerName;
+                DoSave(data, Filename);
 
             }
 
@@ -280,20 +260,33 @@ namespace Tools_File
                             gameState = GameStates.Highscore;
                         }
 
-                        if (keyboard.IsKeyDown(Keys.P))
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.O))
                     {
-                        playerScore1++;
+
+                        playerName = "Olle";
                     }
 
-                        if (keyboard.IsKeyDown(Keys.A))
+                    if (Keyboard.GetState().IsKeyDown(Keys.P))
                     {
-                        playerScore2++;
+
+
+                        playerName = "Subaru";
                     }
-                    
 
-                    
+                    if (Keyboard.GetState().IsKeyDown(Keys.I))
+                    {
 
-                        break;
+
+                        playerName = "Rem";
+                    }
+
+
+
+
+
+
+                    break;
 
                     case GameStates.Highscore:
 
@@ -331,21 +324,27 @@ namespace Tools_File
             switch (gameState)
             {
                 case GameStates.Changescore:
+                  
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[0].ToString() + " " + playerScore.ToString(), scorePosition, Color.White);
+                    spriteBatch.DrawString(Font, playerScore.ToString(), scorePosition1,
+                        Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[1].ToString() + " " + playerScore1.ToString(), scorePosition1, Color.White);
+                    spriteBatch.DrawString(Font, playerName.ToString(), playerpos,
+                        Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[2].ToString() + " " + playerScore2.ToString(), scorePosition2, Color.White);
+                    // Draw the controls.
+                    spriteBatch.DrawString(Font, "Use the up and down arrow keys to increase and decrease the score.".ToString(), new Vector2(35, 390), Color.White);
+                    spriteBatch.DrawString(Font, "Press I=Olle O=Suabru P=Rem to change player.".ToString(), new Vector2(130, 420), Color.White);
+                    spriteBatch.DrawString(Font, "Press H for highscore.".ToString(), new Vector2(280, 450), Color.White);
                     break;
 
                 case GameStates.Highscore:
 
-                     spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[].ToString() + " " +  LoadData(Filename).Score[0].ToString(), scorePosition, Color.White);
+                     spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[0].ToString() + " " +  LoadData(Filename).Score[0].ToString(), scorePosition, Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[].ToString() + " " + LoadData(Filename).Score[1].ToString(), scorePosition1, Color.White);
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[1].ToString() + " " + LoadData(Filename).Score[1].ToString(), scorePosition1, Color.White);
 
-                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[].ToString() + " " + LoadData(Filename).Score[2].ToString(), scorePosition2, Color.White);
+                    spriteBatch.DrawString(Font, LoadData(Filename).PlayerName[2].ToString() + " " + LoadData(Filename).Score[2].ToString(), scorePosition2, Color.White);
                     break;
 
             }
